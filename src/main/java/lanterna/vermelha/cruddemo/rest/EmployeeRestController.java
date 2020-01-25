@@ -9,22 +9,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lanterna.vermelha.cruddemo.dao.EmployeeDao;
 import lanterna.vermelha.cruddemo.entity.Employee;
+import lanterna.vermelha.cruddemo.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api")
 public class EmployeeRestController {
 	
-	private EmployeeDao employeeDao;
+	private EmployeeService employeeService;
 	
-	//temp shortcut: inject employee dao (service injection later)
 	@Autowired
-	public EmployeeRestController(EmployeeDao theEmployeeDao) {
-		employeeDao = theEmployeeDao;
+	public EmployeeRestController(EmployeeService employeeService) {
+		this.employeeService = employeeService;
 	}
+	
 	
 	//expose "/employees" and return list of employees
 	@GetMapping("/employees")
 	public List<Employee> findAll(){
-		return employeeDao.findAll();
+		return employeeService.findAll();
 	}
+
+	
 }
